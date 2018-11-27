@@ -18,7 +18,7 @@ class CreateScholarshipsTable extends Migration
             $table->string('title');
             $table->string('provider');
             $table->unsignedInteger('institution_id');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
