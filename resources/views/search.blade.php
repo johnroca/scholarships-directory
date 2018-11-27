@@ -42,7 +42,7 @@
 
             .content {
                 text-align: center;
-                width: 100%;    
+                width: 90%;    
             }
 
             .title {
@@ -65,12 +65,22 @@
 
             input[name="search"] {
                 height: 25px;
-                width: 50%;
+                width: 90%;
                 font-size: .3em;
                 padding: 1em;
                 text-transform: uppercase;
                 font-weight: 1;
             }
+
+            .result {
+                text-align: left;
+            }
+
+            .scholarship {
+                padding: 0px 2em;
+                border-bottom : 1px solid #8BA576;
+            }
+
         </style>
     </head>
     <body>
@@ -92,8 +102,17 @@
             <div class="content">
                 <div class="title m-b-md">
                     <form action="/search" method="GET">
-                        <input class="" type="text" name="search" placeholder="Search Scholarship Here">
+                        <input class="" type="text" name="search" value="{{ $search }}" placeholder="Search Scholarship">
                     </form>
+                </div>
+                <div class="result">
+                    @foreach($scholarships as $scholarship)
+                        <div class="scholarship">
+                            <h1>{{ $scholarship->title }}</h1>
+                            <h2>{{ $scholarship->provider }}</h2>
+                            <p>{{ $scholarship->description }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

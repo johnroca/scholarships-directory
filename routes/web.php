@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +16,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/search', [
+	'as'	=> 'search.index',
+	'uses'	=> 'SearchController@index'
+]);

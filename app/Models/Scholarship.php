@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Scholarship extends Model
 {
+	use Searchable;
+
 	protected $fillable = ['title', 'institution_id', 'provider'];
 
 	public function requirements()
@@ -16,5 +19,20 @@ class Scholarship extends Model
 	public function qualifications()
 	{
 		return $this->hasMany(Qualification::class);
+	}
+
+	public function toSearchableArray()
+	{
+		$array = $this->toArray();
+
+    	$array['requirements'] = $this->requirements->map(function ($data) {
+	                             return $data['title'];
+	                           })->toArray();
+
+    	$array['qualifications'] = $this->qualifications->map(function ($data) {
+	                             return $data['title'];
+	                           })->toArray();
+    	
+    	return $array;
 	}
 }
