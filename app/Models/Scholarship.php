@@ -21,15 +21,31 @@ class Scholarship extends Model
 		return $this->hasMany(Qualification::class);
 	}
 
+	public function institution()
+	{
+		return $this->hasOne(Institution::class, 'id', 'institution_id');
+	}
+
+	public function categories()
+	{
+		return $this->hasManyThrough(Category::class, ScholarshipCategory::class, 'id', 'id');
+	}
+
 	public function toSearchableArray()
 	{
 		$array = $this->toArray();
-
+		
     	$array['requirements'] = $this->requirements->map(function ($data) {
 	                             return $data['title'];
 	                           })->toArray();
 
+    	$array['institution'] = $this->institution->name;
+    	
     	$array['qualifications'] = $this->qualifications->map(function ($data) {
+	                             return $data['title'];
+	                           })->toArray();
+
+    	$array['categories'] = $this->categories->map(function ($data) {
 	                             return $data['title'];
 	                           })->toArray();
     	
